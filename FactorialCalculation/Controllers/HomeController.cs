@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,6 +29,11 @@ namespace FactorialCalculation.Controllers
                     for (int i = fact.Number; i > 1; i--)
                         res = res * i;
                 fact.Result = res;
+                FileInfo fi = new FileInfo(Server.MapPath("output.txt"));                
+                using (StreamWriter writer = new StreamWriter(fi.Open(FileMode.Truncate)))
+                {
+                    writer.WriteLine(res);
+                }                               
             }
             return View(fact);
         }
